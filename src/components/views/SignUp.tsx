@@ -61,10 +61,10 @@ export default function SignUp() {
                     label='Password'
                 />
                 <Button label='Sign-up' onPress={() => {
-                    signIn();
+                    // signIn();
                     // Navigate after signing in. You may want to tweak this to ensure sign-in is
                     // successful before navigating.
-                    router.replace('/');
+                    // router.replace('/');
                 }} />
             </ScrollView>
         </>
