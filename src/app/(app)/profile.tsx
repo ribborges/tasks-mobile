@@ -6,9 +6,12 @@ import { Spacer } from '@/components/Separator';
 import { ProfilePic, UserInfo } from '@/components/User';
 import { useUserStore } from '@/lib/store';
 import { Button, InputPassword, InputText } from '@/components/Input';
+import { useSession } from '@/hooks/useSession';
 
 export default function Profile() {
     const { user, setUser } = useUserStore();
+    
+    const { signOut } = useSession();
 
     const [userData, setUserData] = useState({
         name: user?.name || '',
@@ -106,6 +109,9 @@ export default function Profile() {
                     />
                     <Button label='Change password' />
                 </View>
+                <Spacer space={15} />
+                <Button onPress={() => signOut()} label='Sign Out' />
+                <Button buttonColors="bg-red-600 border-red-600" label='Delete account' />
             </ScrollView>
         </View>
     );
