@@ -9,8 +9,12 @@ export function SessionProvider({ children }: PropsWithChildren) {
     return (
         <AuthContext.Provider
             value={{
-                signIn: () => {
-                    setSession('xxx');
+                signIn: async (token) => {
+                    if (!token) {
+                        return;
+                    }
+
+                    setSession(token);
                 },
                 signOut: () => {
                     setSession(null);

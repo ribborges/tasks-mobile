@@ -1,12 +1,12 @@
 import { createContext } from "react";
 
 const AuthContext = createContext<{
-    signIn: () => void;
+    signIn: (data: string) => void;
     signOut: () => void;
     session?: string | null;
     isLoading: boolean;
 }>({
-    signIn: () => null,
+    signIn: (data: string) => null,
     signOut: () => null,
     session: null,
     isLoading: false,
