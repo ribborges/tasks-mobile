@@ -8,7 +8,7 @@ interface TextLinkProps {
 export default function TextLink(props: TextLinkProps) {
     return (
         <TouchableOpacity onPress={props.onPress} className='p-2'>
-            <Text className='text-purple-600 text-center'>{props.children}</Text>
+            <Text className='text-indigo-600 text-center'>{props.children}</Text>
         </TouchableOpacity>
     );
 }

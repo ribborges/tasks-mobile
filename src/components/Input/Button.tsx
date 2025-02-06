@@ -17,9 +17,9 @@ export default function Button(props: ButtonProps) {
             activeOpacity={0.8}
             onPress={props.onPress}
             className="
-                bg-purple-700
+                bg-indigo-600
                 disabled:bg-transparent
-                border border-solid border-purple-700
+                border border-solid border-indigo-600
                 basis-[max-content] items-center justify-center content-center gap-2
                 p-4 m-1
                 rounded-xl
