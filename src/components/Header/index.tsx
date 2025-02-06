@@ -1,9 +1,9 @@
-import { Image, View, Text } from "react-native";
+import { Image, View } from "react-native";
 import { useRouter } from "expo-router";
 
-import UserBadge from "@/components/UserBadge";
+import { UserButton } from "@/components/User";
 
-export default function Header({ leftButton }: { leftButton?: JSX.Element }) {
+export default function Header() {
     const router = useRouter();
 
     return (
@@ -19,7 +19,7 @@ export default function Header({ leftButton }: { leftButton?: JSX.Element }) {
                     className="w-10 h-10"
                 />
             </View>
-            <UserBadge onPress={() => router.navigate("/profile")} />
+            <UserButton onPress={() => router.navigate("/profile")} />
         </View>
     );
 }
