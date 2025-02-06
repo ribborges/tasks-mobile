@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Pressable, PressableProps, View } from 'react-native';
+import { Pressable, PressableProps, View } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import clsx from 'clsx';
