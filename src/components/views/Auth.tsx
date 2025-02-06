@@ -21,9 +21,9 @@ export default function Auth(props: AuthProps) {
             <View className="
                 flex-1 items-stretch gap-4
                 p-4 mx-1
-                bg-zinc-200 bg-opacity-50 dark:bg-zinc-800 dark:bg-opacity-50
+                bg-zinc-100 bg-opacity-50 dark:bg-zinc-900 dark:bg-opacity-50
                 border-t border-x border-solid rounded-t-[4rem]
-                border-zinc-300 border-opacity-50 dark:border-zinc-700 dark:border-opacity-50
+                border-zinc-200 border-opacity-50 dark:border-zinc-800 dark:border-opacity-50
             ">
                 {props.children}
             </View>
