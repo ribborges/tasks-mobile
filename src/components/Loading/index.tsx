@@ -1,6 +1,6 @@
 import { View, Image, StatusBar, useColorScheme, ActivityIndicator } from 'react-native';
 
-export default function Loading() {
+function Loading() {
     const colorScheme = useColorScheme();
 
     return (
@@ -16,7 +16,15 @@ export default function Loading() {
                 source={require('#/images/icon.png')}
                 className="w-24 h-24"
             />
-            <ActivityIndicator size="large" color="#71717a" />
+            <Indicator />
         </View>
     );
 }
+
+function Indicator() {
+    return (
+        <ActivityIndicator size="large" color="#71717a" />
+    );
+}
+
+export { Loading, Indicator };
