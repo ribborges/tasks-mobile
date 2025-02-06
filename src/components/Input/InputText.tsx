@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import { NativeSyntheticEvent, TextInput, TextInputChangeEventData } from "react-native";
+import { TextInput } from "react-native";
 
-import { InputGroup } from ".";
+import InputGroup from "./InputGroup";
 
 interface TextInputProps {
     disabled?: boolean,

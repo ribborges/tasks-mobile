@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import { View, Text } from "react-native";
 import { clsx } from "clsx";
 
-import { Label } from ".";
+import Label from "./Label";
 
 interface InputGroupProps {
     className?: string,

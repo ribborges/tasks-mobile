@@ -1,8 +1,8 @@
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ReactNode, useState } from "react";
 import { TextInput, Text, TouchableOpacity } from "react-native";
-
-import { InputGroup } from ".";
 import { Ionicons } from "@expo/vector-icons";
+
+import InputGroup from "./InputGroup";
 
 interface PasswordInputProps {
     disabled?: boolean,
