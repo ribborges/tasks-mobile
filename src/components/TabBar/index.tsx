@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, PressableProps, View } from 'react-native';
+import { Pressable, PressableProps, View, Text } from 'react-native';
 import { BlurView } from 'expo-blur';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import clsx from 'clsx';
@@ -21,7 +21,9 @@ function TabBarButton({ isFocused, label, icon, ...props }: tabBarBtnProps) {
                 isFocused ? "bg-indigo-500 dark:bg-indigo-800" : "bg-transparent"
             )}
         >
-            {icon({ focused: isFocused })}
+            <Text className={isFocused ? "text-indigo-800 dark:text-indigo-500" : "text-zinc-700 dark:text-zinc-300"}>
+                {icon({ focused: isFocused })}
+            </Text>
         </Pressable>
     )
 }

@@ -1,9 +1,9 @@
 import { TouchableOpacity, View, Text, useColorScheme } from "react-native";
 
-import { StarFill, PencilSquare, TrashFill } from "../Icons";
 import { useCategoryStore, useTaskStore } from "@/lib/store";
 import Collapse from "@/components/Collapse";
 import { formatDate } from "@/utils/formatDate";
+import { FontAwesome } from "@expo/vector-icons";
 
 interface TaskCardProps {
     taskID: string;
@@ -37,18 +37,21 @@ export default function TaskCard(props: TaskCardProps) {
                 {task?.dueDate && <Text className="text-gray-500">{`Due: ${formatDate('en-US', task?.dueDate)}`}</Text>}
                 <Text className="text-gray-500">{`Created: ${formatDate('en-US', task?.createdAt)}`}</Text>
             </Collapse>
-            <View className="flex-row items-center">
+            <View className="flex-row items-center gap-1">
                 <TouchableOpacity className="p-1">
-                    {task?.isImportant ?
-                        <StarFill size={16} color="gold" /> :
-                        <StarFill size={16} color={colorScheme === 'light' ? "black" : "white"} />
-                    }
+                    <Text className={task?.isImportant ? "text-yellow-500" : "text-zinc-700 dark:text-zinc-300"}>
+                        <FontAwesome name={'star'} size={18} />
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity className="p-1">
-                    <PencilSquare size={16} color={colorScheme === 'light' ? "black" : "white"} />
+                    <Text className="text-zinc-700 dark:text-zinc-300">
+                        <FontAwesome name={'pencil-square'} size={18} />
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity className="p-1">
-                    <TrashFill size={16} color={colorScheme === 'light' ? "black" : "white"} />
+                    <Text className="text-zinc-700 dark:text-zinc-300">
+                        <FontAwesome name={'trash'} size={18} />
+                    </Text>
                 </TouchableOpacity>
             </View>
         </View>

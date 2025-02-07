@@ -1,8 +1,8 @@
 import { useColorScheme } from "react-native";
 import { Tabs } from "expo-router";
+import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 
 import TabBar from "@/components/TabBar";
-import { HouseFill, CalendarFill, PlusLg, StarFill, CollectionFill } from "@/components/Icons";
 import Header from "@/components/Header";
 
 export default function TabLayout() {
@@ -26,10 +26,8 @@ export default function TabLayout() {
                 name="index"
                 options={{
                     title: 'Home',
-                    tabBarIcon: ({ focused }) => (
-                        <HouseFill size="100%" color={
-                            focused ? colorScheme === 'light' ? "#3730a3" : "#6366f1" : colorScheme === 'light' ? "#3f3f46" : "#d4d4d8"
-                        } />
+                    tabBarIcon: () => (
+                        <FontAwesome6 name={'house'} size={18} />
                     )
                 }}
             />
@@ -37,10 +35,8 @@ export default function TabLayout() {
                 name="a"
                 options={{
                     title: 'Calendar',
-                    tabBarIcon: ({ focused }) => (
-                        <CalendarFill size="100%" color={
-                            focused ? colorScheme === 'light' ? "#3730a3" : "#6366f1" : colorScheme === 'light' ? "#3f3f46" : "#d4d4d8"
-                        } />
+                    tabBarIcon: () => (
+                        <FontAwesome6 name={'calendar-day'} size={18} />
                     )
                 }}
             />
@@ -48,10 +44,8 @@ export default function TabLayout() {
                 name="b"
                 options={{
                     title: 'Add',
-                    tabBarIcon: ({ focused }) => (
-                        <PlusLg size="100%" color={
-                            focused ? colorScheme === 'light' ? "#3730a3" : "#6366f1" : colorScheme === 'light' ? "#3f3f46" : "#d4d4d8"
-                        } />
+                    tabBarIcon: () => (
+                        <FontAwesome6 name={'plus'} size={18} />
                     )
                 }}
             />
@@ -59,10 +53,8 @@ export default function TabLayout() {
                 name="c"
                 options={{
                     title: 'Important',
-                    tabBarIcon: ({ focused }) => (
-                        <StarFill size="100%" color={
-                            focused ? colorScheme === 'light' ? "#3730a3" : "#6366f1" : colorScheme === 'light' ? "#3f3f46" : "#d4d4d8"
-                        } />
+                    tabBarIcon: () => (
+                        <FontAwesome name={'star'} size={18} />
                     )
                 }}
             />
@@ -70,10 +62,8 @@ export default function TabLayout() {
                 name="d"
                 options={{
                     title: 'Categories',
-                    tabBarIcon: ({ focused }) => (
-                        <CollectionFill size="100%" color={
-                            focused ? colorScheme === 'light' ? "#3730a3" : "#6366f1" : colorScheme === 'light' ? "#3f3f46" : "#d4d4d8"
-                        } />
+                    tabBarIcon: () => (
+                        <FontAwesome6 name={'layer-group'} size={18} />
                     )
                 }}
             />
