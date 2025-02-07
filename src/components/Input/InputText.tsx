@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { TextInput } from "react-native";
+import { KeyboardTypeOptions, TextInput } from "react-native";
 
 import InputGroup from "./InputGroup";
 
@@ -10,12 +10,11 @@ interface TextInputProps {
     name?: string,
     onChange?: (value: string, name: string) => void,
     value?: string,
-    className?: string,
     icon?: ReactNode,
     placeholder?: string,
     autoCapitalize?: "none" | "sentences" | "words" | "characters",
     label?: string,
-    children?: ReactNode,
+    keyboardType?: KeyboardTypeOptions
 }
 
 export default function InputText(props: TextInputProps) {
@@ -30,6 +29,7 @@ export default function InputText(props: TextInputProps) {
                 placeholderTextColor={"grey"}
                 className="p-4 text-zinc-950 dark:text-zinc-100 flex-1"
                 cursorColor={"grey"}
+                keyboardType={props.keyboardType}
             />
         </InputGroup>
     );

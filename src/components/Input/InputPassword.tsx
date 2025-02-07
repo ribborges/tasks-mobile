@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { TextInput, Text, TouchableOpacity } from "react-native";
+import { TextInput, Text, TouchableOpacity, KeyboardTypeOptions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import InputGroup from "./InputGroup";
@@ -11,10 +11,9 @@ interface PasswordInputProps {
     name?: string,
     onChange?: (value: string, name: string) => void,
     value?: string,
-    className?: string,
     icon?: ReactNode,
     label?: string,
-    children?: ReactNode,
+    keyboardType?: KeyboardTypeOptions
 }
 
 export default function InputPassword(props: PasswordInputProps) {
@@ -32,6 +31,7 @@ export default function InputPassword(props: PasswordInputProps) {
                 className="p-4 text-zinc-950 dark:text-zinc-100 flex-1"
                 cursorColor={"grey"}
                 secureTextEntry={!showPassword}
+                keyboardType={props.keyboardType}
             />
             <TouchableOpacity className="p-4" onPress={() => setShowPassword(!showPassword)}>
                 <Text className="text-zinc-950 dark:text-zinc-100">
