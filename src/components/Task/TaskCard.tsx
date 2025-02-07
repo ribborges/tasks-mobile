@@ -6,6 +6,7 @@ import { formatDate } from "@/utils/formatDate";
 import { FontAwesome } from "@expo/vector-icons";
 import { RemoveTask, UpdateTask } from "@/services/task.service";
 import { useRouter } from "expo-router";
+import clsx from "clsx";
 
 interface TaskCardProps {
     taskID: string;
@@ -53,7 +54,12 @@ export default function TaskCard(props: TaskCardProps) {
 
     return (
         <View className="flex-row items-center gap-2 p-2 rounded-xl border border-solid border-zinc-300 dark:border-zinc-800">
-            <View className="h-8 w-1 bg-red-500 rounded-full" />
+            <View className={clsx(
+                "h-6 w-1 rounded-full",
+                task?.status === 'completed' ? "bg-green-500" :
+                    task?.status === 'in-progress' ? "bg-yellow-500" :
+                        task?.status === 'pending' ? "bg-red-500" : "bg-blue-500"
+            )} />
             <TouchableOpacity
                 className="
                     h-6 w-6
