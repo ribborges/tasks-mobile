@@ -1,10 +1,12 @@
 import React, { ReactNode } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { clsx } from "clsx";
 
 import Label from "./Label";
 
 interface InputGroupProps {
+    fakeInput?: boolean,
+    value?: string,
     className?: string,
     icon?: ReactNode,
     label?: string,
@@ -27,12 +29,9 @@ export default function InputGroup(props: InputGroupProps) {
                 `
                 m-1
                 flex-row flex-nowrap items-center
-                rounded-xl border-2 border-solid border-zinc-400 dark:border-zinc-700
-                hover:shadow-2xl focus:shadow-2xl
-                hover:shadow-zinc-950/20 focus:shadow-zinc-950/20
-                dark:hover:shadow-zinc-200/20 dark:focus:shadow-zinc-200/20
                 overflow-hidden
-                `
+                `,
+                props.fakeInput ? "" : "rounded-xl border-2 border-solid border-zinc-400 dark:border-zinc-700"
             )}>
                 <View className="gap-2 items-center p-4">
                     {props.icon && <Text className="text-zinc-950 dark:text-zinc-100">{props.icon}</Text>}
@@ -43,7 +42,15 @@ export default function InputGroup(props: InputGroupProps) {
                             </Label> : <></>
                     }
                 </View>
-                {props.children}
+                {
+                    props.fakeInput ?
+                        <View className="p-4 flex-1 flex-row items-center justify-between">
+                            <Text className="text-zinc-950 dark:text-zinc-100">
+                                {props.value}
+                            </Text>
+                        </View> :
+                        props.children
+                }
             </View>
         </View>
     );

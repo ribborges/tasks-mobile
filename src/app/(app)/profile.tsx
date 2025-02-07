@@ -7,10 +7,13 @@ import { ProfilePic, UserInfo } from '@/components/User';
 import { useUserStore } from '@/lib/store';
 import { Button, InputPassword, InputText } from '@/components/Input';
 import { useSession } from '@/hooks/useSession';
+import React from 'react';
 
 export default function Profile() {
+    const [editingUser, setEditingUser] = useState(false);
+    const [editingPass, setEditingPass] = useState(false);
     const { user, setUser } = useUserStore();
-    
+
     const { signOut } = useSession();
 
     const [userData, setUserData] = useState({
@@ -59,6 +62,7 @@ export default function Profile() {
             " contentContainerClassName="items-stretch p-4 gap-4">
                 <View className="gap-2">
                     <InputText
+                        fakeInput={!editingUser}
                         id='name'
                         name='name'
                         value={userData.name}
@@ -68,6 +72,7 @@ export default function Profile() {
                         placeholder="Ana Silva"
                     />
                     <InputText
+                        fakeInput={!editingUser}
                         id='username'
                         name='username'
                         value={userData.username}
@@ -78,6 +83,7 @@ export default function Profile() {
                         autoCapitalize="none"
                     />
                     <InputText
+                        fakeInput={!editingUser}
                         id='email'
                         name='email'
                         value={userData.email}
@@ -87,27 +93,41 @@ export default function Profile() {
                         placeholder="ana_Silva@email.com"
                         autoCapitalize="none"
                     />
-                    <Button label='Save' />
+                    {
+                        editingUser ? (
+                            <Button label='Save' />
+                        ) : (
+                            <Button onPress={() => setEditingUser(true)} label='Edit' />
+                        )
+                    }
                 </View>
                 <Spacer space={15} />
                 <View className="gap-2">
-                    <InputPassword
-                        id='password'
-                        name='password'
-                        value={password.password}
-                        onChange={onChangePass}
-                        icon={<Ionicons name="key" />}
-                        label='Password'
-                    />
-                    <InputPassword
-                        id='newPassword'
-                        name='newPassword'
-                        value={password.newPassword}
-                        onChange={onChangePass}
-                        icon={<Ionicons name="key" />}
-                        label='New password'
-                    />
-                    <Button label='Change password' />
+                    {
+                        editingPass ? (
+                            <>
+                                <InputPassword
+                                    id='password'
+                                    name='password'
+                                    value={password.password}
+                                    onChange={onChangePass}
+                                    icon={<Ionicons name="key" />}
+                                    label='Password'
+                                />
+                                <InputPassword
+                                    id='newPassword'
+                                    name='newPassword'
+                                    value={password.newPassword}
+                                    onChange={onChangePass}
+                                    icon={<Ionicons name="key" />}
+                                    label='New password'
+                                />
+                                <Button label='Change password' />
+                            </>
+                        ) : (
+                            <Button onPress={() => setEditingPass(true)} label='Edit password' />
+                        )
+                    }
                 </View>
                 <Spacer space={15} />
                 <Button onPress={() => signOut()} label='Sign Out' />

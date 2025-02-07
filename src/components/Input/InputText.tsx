@@ -4,6 +4,7 @@ import { TextInput } from "react-native";
 import InputGroup from "./InputGroup";
 
 interface TextInputProps {
+    fakeInput?: boolean,
     disabled?: boolean,
     id?: string,
     name?: string,
@@ -19,7 +20,7 @@ interface TextInputProps {
 
 export default function InputText(props: TextInputProps) {
     return (
-        <InputGroup icon={props.icon} label={props.label}>
+        <InputGroup fakeInput={props.fakeInput} value={props.value} icon={props.icon} label={props.label}>
             <TextInput
                 id={props.id}
                 value={props.value}

@@ -5,6 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import InputGroup from "./InputGroup";
 
 interface PasswordInputProps {
+    fakeInput?: boolean,
     disabled?: boolean,
     id?: string,
     name?: string,
@@ -20,7 +21,7 @@ export default function InputPassword(props: PasswordInputProps) {
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <InputGroup icon={props.icon} label={props.label}>
+        <InputGroup fakeInput={props.fakeInput} icon={props.icon} label={props.label}>
             <TextInput
                 id={props.id}
                 value={props.value}
