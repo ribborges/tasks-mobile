@@ -2,8 +2,11 @@ import { Image, View } from "react-native";
 import { useRouter } from "expo-router";
 
 import { UserButton } from "@/components/User";
+import { useUserStore } from "@/lib/store";
 
 export default function Header() {
+    const { user } = useUserStore();
+
     const router = useRouter();
 
     return (
@@ -19,7 +22,7 @@ export default function Header() {
                     className="w-10 h-10"
                 />
             </View>
-            <UserButton onPress={() => router.navigate("/profile")} />
+            <UserButton src={user?.profilePic} onPress={() => router.navigate("/profile")} />
         </View>
     );
 }
