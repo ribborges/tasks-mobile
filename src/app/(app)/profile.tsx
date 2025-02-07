@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 
@@ -7,7 +7,7 @@ import { ProfilePic, UserInfo } from '@/components/User';
 import { useUserStore } from '@/lib/store';
 import { Button, InputPassword, InputText } from '@/components/Input';
 import { useSession } from '@/hooks/useSession';
-import React from 'react';
+import { UpdateUser, ChangePassword } from '@/services/user.service';
 
 export default function Profile() {
     const [editingUser, setEditingUser] = useState(false);
@@ -39,6 +39,64 @@ export default function Profile() {
             ...prevState,
             [name]: value,
         }));
+    }
+
+    const handleUserSubmit = async () => {
+        if (user?.id) {
+            await UpdateUser(user?.id, {
+                name: userData?.name === user?.name ? undefined : userData?.name,
+                username: userData?.username === user?.username ? undefined : userData?.username,
+                email: userData?.email === user?.email ? undefined : userData?.email
+            })
+                .then((res) => {
+                    if (!res) {
+                        console.error('Error updating user: no response');
+                        return;
+                    }
+
+                    if (res?.status !== 200) {
+                        console.error('Error updating user:', res.status, ":", res.data);
+                        return;
+                    }
+
+                    setEditingUser(false);
+                    setUser({
+                        ...user,
+                        name: userData?.name || user?.name,
+                        username: userData?.username || user?.username,
+                        email: userData?.email || user?.email
+                    });
+                })
+                .catch((error) => {
+                    console.error('There has been a problem with your fetch operation: ', error);
+                });
+        }
+    }
+
+    const handlePasswordSubmit = async () => {
+        if (user?.id) {
+            await ChangePassword(user?.id, password)
+                .then((res) => {
+                    if (!res) {
+                        console.error('Error updating password: no response');
+                        return;
+                    }
+
+                    if (res?.status !== 200) {
+                        console.error('Error updating password:', res.status);
+                        return;
+                    }
+
+                    setPassword({
+                        password: "",
+                        newPassword: ""
+                    });
+                    setEditingPass(false);
+                })
+                .catch((error) => {
+                    console.error('There has been a problem with your fetch operation: ', error);
+                });
+        }
     }
 
     return (
@@ -95,7 +153,7 @@ export default function Profile() {
                     />
                     {
                         editingUser ? (
-                            <Button label='Save' />
+                            <Button onPress={() => handleUserSubmit()} label='Save' />
                         ) : (
                             <Button onPress={() => setEditingUser(true)} label='Edit' />
                         )
@@ -122,7 +180,7 @@ export default function Profile() {
                                     icon={<Ionicons name="key" />}
                                     label='New password'
                                 />
-                                <Button label='Change password' />
+                                <Button onPress={() => handlePasswordSubmit()} label='Change password' />
                             </>
                         ) : (
                             <Button onPress={() => setEditingPass(true)} label='Edit password' />
