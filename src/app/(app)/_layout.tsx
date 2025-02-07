@@ -43,6 +43,7 @@ export default function AppLayout() {
     >
       <Stack.Screen options={{ headerShown: false }} name="(tabs)" />
       <Stack.Screen options={{ title: "Profile" }} name="profile" />
+      <Stack.Screen options={{ title: "Edit Task" }} name="edit_task" />
     </Stack>
   );
 }
