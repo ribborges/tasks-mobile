@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { FontAwesome, FontAwesome5, FontAwesome6, Ionicons } from '@expo/vector-icons';
 
 import { Spacer } from '@/components/Separator';
 import { ProfilePic, UserInfo } from '@/components/User';
-import { useTaskStore, useUserStore } from '@/lib/store';
-import { Button, InputDate, InputPassword, InputText } from '@/components/Input';
+import { useCategoryStore, useTaskStore, useUserStore } from '@/lib/store';
+import { Button, InputDate, InputPassword, InputSelector, InputText, OptionSelector } from '@/components/Input';
 import { useSession } from '@/hooks/useSession';
 import { UpdateUser, ChangePassword } from '@/services/user.service';
 import { logoutUser } from '@/services/auth.service';
@@ -17,6 +17,7 @@ import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 export default function EditTask() {
     const { id } = useLocalSearchParams();
     const { tasks } = useTaskStore();
+    const { categories } = useCategoryStore();
     const task = tasks.find(task => task.id === id);
 
     const [taskData, setTaskData] = useState<TaskData>({
@@ -73,6 +74,32 @@ export default function EditTask() {
                         onChange={onChange}
                         icon={<FontAwesome name="calendar" />}
                         label='Due Date'
+                    />
+                    <InputSelector
+                        id='status'
+                        name='status'
+                        value={taskData.status}
+                        onChange={onChange}
+                        icon={<FontAwesome name="envelope" />}
+                        label='Status'
+                        items={[
+                            { label: 'Pending', value: 'pending' },
+                            { label: 'In Progress', value: 'in-progress' },
+                            { label: 'Completed', value: 'completed' }
+                        ]}
+                    />
+                    <OptionSelector
+                        id='categoryId'
+                        name='categoryId'
+                        value={taskData.categoryId}
+                        onChange={onChange}
+                        icon={<FontAwesome name="envelope" />}
+                        label='Category'
+                        options={categories.map(category => ({
+                            label: category.name,
+                            value: category.id,
+                            children: <FontAwesome6 name={'layer-group'} size={18} color={category.color} />
+                        }))}
                     />
                     <Button label='Save' />
                 </View>
