@@ -19,6 +19,7 @@ async function getLoggedUser() {
 async function UpdateUser(userId: string, data: {
     username?: string,
     name?: string,
+    email?: string,
     profilePic?: string,
 }) {
     try {
