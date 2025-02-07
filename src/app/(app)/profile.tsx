@@ -8,6 +8,7 @@ import { useUserStore } from '@/lib/store';
 import { Button, InputPassword, InputText } from '@/components/Input';
 import { useSession } from '@/hooks/useSession';
 import { UpdateUser, ChangePassword } from '@/services/user.service';
+import { logoutUser } from '@/services/auth.service';
 
 export default function Profile() {
     const [editingUser, setEditingUser] = useState(false);
@@ -15,6 +16,7 @@ export default function Profile() {
     const { user, setUser } = useUserStore();
 
     const { signOut } = useSession();
+    const { logout } = useUserStore();
 
     const [userData, setUserData] = useState({
         name: user?.name || '',
@@ -97,6 +99,17 @@ export default function Profile() {
                     console.error('There has been a problem with your fetch operation: ', error);
                 });
         }
+    }
+
+    const handleLogout = async () => {
+        logoutUser()
+            .catch((error) => {
+                console.error('There has been a problem with your fetch operation: ', error);
+            })
+            .finally(() => {
+                signOut();
+                logout();
+            });
     }
 
     return (
@@ -188,7 +201,7 @@ export default function Profile() {
                     }
                 </View>
                 <Spacer space={15} />
-                <Button onPress={() => signOut()} label='Sign Out' />
+                <Button onPress={() => handleLogout()} label='Sign Out' />
                 <Button buttonColors="bg-red-600 border-red-600" label='Delete account' />
             </ScrollView>
         </View>
