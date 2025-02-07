@@ -8,6 +8,7 @@ interface InputGroupProps {
     fakeInput?: boolean,
     value?: string,
     className?: string,
+    rootClassName?: string,
     icon?: ReactNode,
     label?: string,
     labelInside?: boolean,
@@ -17,7 +18,7 @@ interface InputGroupProps {
 
 export default function InputGroup(props: InputGroupProps) {
     return (
-        <View>
+        <View className={props.rootClassName}>
             {
                 props.label && !props.labelInside ?
                     <Label>
@@ -28,20 +29,23 @@ export default function InputGroup(props: InputGroupProps) {
                 props.className || "",
                 `
                 m-1
-                flex-row flex-nowrap items-center
+                flex-row flex-nowrap
                 overflow-hidden
                 `,
                 props.fakeInput ? "" : "rounded-xl border-2 border-solid border-zinc-400 dark:border-zinc-700"
             )}>
-                <View className="gap-2 items-center p-4">
-                    {props.icon && <Text className="text-zinc-950 dark:text-zinc-100">{props.icon}</Text>}
-                    {
-                        props.label && props.labelInside ?
-                            <Label>
-                                {props.label}
-                            </Label> : <></>
-                    }
-                </View>
+                {
+                    (props.icon || props.label) &&
+                    <View className="gap-2 flex-row items-center p-4">
+                        {props.icon && <Text className="text-zinc-950 dark:text-zinc-100">{props.icon}</Text>}
+                        {
+                            props.label && props.labelInside ?
+                                <Label>
+                                    {props.label}
+                                </Label> : <></>
+                        }
+                    </View>
+                }
                 {
                     props.fakeInput ?
                         <View className="p-4 flex-1 flex-row items-center justify-between">
