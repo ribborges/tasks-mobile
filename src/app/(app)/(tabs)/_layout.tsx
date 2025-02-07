@@ -32,7 +32,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="a"
+                name="calendar"
                 options={{
                     title: 'Calendar',
                     tabBarIcon: () => (
@@ -41,7 +41,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="b"
+                name="add"
                 options={{
                     title: 'Add',
                     tabBarIcon: () => (
@@ -50,7 +50,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="c"
+                name="important"
                 options={{
                     title: 'Important',
                     tabBarIcon: () => (
@@ -59,7 +59,7 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="d"
+                name="categories"
                 options={{
                     title: 'Categories',
                     tabBarIcon: () => (
