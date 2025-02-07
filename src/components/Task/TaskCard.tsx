@@ -1,12 +1,12 @@
 import { TouchableOpacity, View, Text } from "react-native";
+import { useRouter } from "expo-router";
+import clsx from "clsx";
 
 import { useCategoryStore, useTaskStore } from "@/lib/store";
 import Collapse from "@/components/Collapse";
 import { formatDate } from "@/utils/formatDate";
 import { FontAwesome } from "@expo/vector-icons";
 import { RemoveTask, UpdateTask } from "@/services/task.service";
-import { useRouter } from "expo-router";
-import clsx from "clsx";
 
 interface TaskCardProps {
     taskID: string;

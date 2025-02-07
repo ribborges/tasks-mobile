@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { FontAwesome, FontAwesome5, FontAwesome6, Ionicons } from '@expo/vector-icons';
 
-import { Spacer } from '@/components/Separator';
-import { ProfilePic, UserInfo } from '@/components/User';
 import { useCategoryStore, useTaskStore, useUserStore } from '@/lib/store';
-import { Button, InputDate, InputPassword, InputSelector, InputText, OptionSelector } from '@/components/Input';
-import { useSession } from '@/hooks/useSession';
-import { UpdateUser, ChangePassword } from '@/services/user.service';
-import { logoutUser } from '@/services/auth.service';
-import { useLocalSearchParams } from 'expo-router';
+import { Button, InputCheckbox, InputDate, InputSelector, InputText, OptionSelector } from '@/components/Input';
 import { TaskData } from '@/interfaces/task';
-
-import { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { UpdateTask } from '@/services/task.service';
 
 export default function EditTask() {
-    const { id } = useLocalSearchParams();
-    const { tasks } = useTaskStore();
+    const router = useRouter();
+    
+    const { id } = useLocalSearchParams() as unknown as { id: string };
+    const { user } = useUserStore();
+    const { tasks, updateTask } = useTaskStore();
     const { categories } = useCategoryStore();
     const task = tasks.find(task => task.id === id);
 
@@ -29,11 +26,54 @@ export default function EditTask() {
         isImportant: task?.isImportant
     });
 
-    const onChange = (value: string, name: string) => {
+    const onChange = (value: string | boolean, name: string) => {
         setTaskData((prevState: any) => ({
             ...prevState,
             [name]: value,
         }));
+    }
+
+    const handleSubmit = async () => {
+        if (user?.id) {
+            await UpdateTask(id, {
+                categoryId: taskData.categoryId === task?.categoryId ? undefined : taskData.categoryId,
+                name: taskData.name === task?.name ? undefined : taskData.name,
+                description: taskData.description === task?.description ? undefined : taskData.description,
+                dueDate: taskData.dueDate === task?.dueDate ? undefined : taskData.dueDate,
+                status: taskData.status === task?.status ? undefined : taskData.status,
+                isImportant: taskData.isImportant === task?.isImportant ? undefined : taskData.isImportant
+            })
+                .then((res) => {
+                    if (!res) {
+                        console.error('Error updating task: no response');
+                        return;
+                    }
+
+                    if (res?.status !== 200) {
+                        console.error(`${res.status}: ${res.data}`);
+                        return;
+                    }
+
+                    if (task) {
+                        updateTask(id, {
+                            ...task,
+                            categoryId: taskData.categoryId ? taskData.categoryId : task.categoryId,
+                            name: taskData.name ? taskData.name : task.name,
+                            description: taskData.description ? taskData.description : task.description,
+                            dueDate: taskData.dueDate ? taskData.dueDate : task.dueDate,
+                            status: taskData.status ? taskData.status : task.status,
+                            isImportant: taskData.isImportant ? taskData.isImportant : task.isImportant
+                        });
+                    } else {
+                        console.error('Task not found');
+                    }
+
+                    router.dismiss();
+                })
+                .catch((error) => {
+                    console.error('There has been a problem with your fetch operation: ', error);
+                });
+        }
     }
 
     return (
@@ -64,7 +104,6 @@ export default function EditTask() {
                         onChange={onChange}
                         icon={<FontAwesome5 name="id-badge" />}
                         label='Description'
-                        autoCapitalize="none"
                     />
                     <InputDate
                         id='dueDate'
@@ -74,19 +113,6 @@ export default function EditTask() {
                         onChange={onChange}
                         icon={<FontAwesome name="calendar" />}
                         label='Due Date'
-                    />
-                    <InputSelector
-                        id='status'
-                        name='status'
-                        value={taskData.status}
-                        onChange={onChange}
-                        icon={<FontAwesome name="envelope" />}
-                        label='Status'
-                        items={[
-                            { label: 'Pending', value: 'pending' },
-                            { label: 'In Progress', value: 'in-progress' },
-                            { label: 'Completed', value: 'completed' }
-                        ]}
                     />
                     <OptionSelector
                         id='categoryId'
@@ -101,7 +127,38 @@ export default function EditTask() {
                             children: <FontAwesome6 name={'layer-group'} size={18} color={category.color} />
                         }))}
                     />
-                    <Button label='Save' />
+                    <InputSelector
+                        id='status'
+                        name='status'
+                        value={taskData.status}
+                        onChange={onChange}
+                        icon={<FontAwesome name="envelope" />}
+                        label='Status'
+                        items={[
+                            { label: 'Pending', value: 'pending' },
+                            { label: 'In Progress', value: 'in-progress' },
+                            { label: 'Completed', value: 'completed' }
+                        ]}
+                    />
+                    <InputCheckbox
+                        id='isImportant'
+                        name='isImportant'
+                        value={taskData.isImportant}
+                        onChange={onChange}
+                        icon={<FontAwesome name="exclamation-triangle" />}
+                        label='Is important'
+                    />
+                    <Button
+                        disabled={
+                            !taskData.name ||
+                            !taskData.description ||
+                            !taskData.dueDate ||
+                            !taskData.categoryId ||
+                            !taskData.status
+                        }
+                        onPress={handleSubmit}
+                        label='Save'
+                    />
                 </View>
             </ScrollView>
         </View>
