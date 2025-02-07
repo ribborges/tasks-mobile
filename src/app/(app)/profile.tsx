@@ -107,7 +107,7 @@ export default function Profile() {
         ">
             {user && (
                 <View className="flex-row items-center gap-4">
-                    <ProfilePic className="h-24 w-24" iconSize={32} />
+                    <ProfilePic className="h-24 w-24" iconSize={32} src={user?.profilePic} />
                     <UserInfo size="xl" name={user?.name} username={user?.username} />
                 </View>
             )}
