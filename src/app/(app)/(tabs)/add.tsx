@@ -2,6 +2,7 @@ import { View } from 'react-native';
 
 import { Toggle } from '@/components/Toggle';
 import { AddTask } from '@/components/Task';
+import { AddCategory } from '@/components/Category';
 
 export default function Add() {
     return (
@@ -18,7 +19,7 @@ export default function Add() {
                     content: <AddTask />
                 }, {
                     label: "Category",
-                    content: <View />
+                    content: <AddCategory />
                 }
             ]} />
         </View>
