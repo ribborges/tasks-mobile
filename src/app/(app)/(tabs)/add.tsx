@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
-import AddTask from '@/components/Task/AddTask';
 import { Toggle } from '@/components/Toggle';
+import { AddTask } from '@/components/Task';
 
 export default function Add() {
     return (

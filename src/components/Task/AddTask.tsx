@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { ScrollView, View } from "react-native";
-import { useRouter } from "expo-router";
 import { Ionicons, FontAwesome5, FontAwesome, FontAwesome6 } from "@expo/vector-icons";
 
-import { Button, InputCheckbox, InputDate, InputSelector, InputText, OptionSelector } from "@/components/Input";
+import { Button, InputCheckbox, InputDate, InputSelector, InputText, InputTextarea, OptionSelector } from "@/components/Input";
 import { useCategoryStore, useTaskStore, useUserStore } from "@/lib/store";
 import { TaskData } from "@/interfaces/task";
 import { Blanckspace } from "@/components/Separator";
@@ -72,7 +71,7 @@ export default function AddTask() {
                     label='Name'
                     placeholder="Do something"
                 />
-                <InputText
+                <InputTextarea
                     id='description'
                     name='description'
                     value={taskData.description}

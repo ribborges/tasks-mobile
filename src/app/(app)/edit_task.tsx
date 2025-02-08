@@ -4,7 +4,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import { FontAwesome, FontAwesome5, FontAwesome6, Ionicons } from '@expo/vector-icons';
 
 import { useCategoryStore, useTaskStore, useUserStore } from '@/lib/store';
-import { Button, InputCheckbox, InputDate, InputSelector, InputText, OptionSelector } from '@/components/Input';
+import { Button, InputCheckbox, InputDate, InputSelector, InputText, InputTextarea, OptionSelector } from '@/components/Input';
 import { TaskData } from '@/interfaces/task';
 import { UpdateTask } from '@/services/task.service';
 
@@ -97,7 +97,7 @@ export default function EditTask() {
                         icon={<Ionicons name="person" />}
                         label='Name'
                     />
-                    <InputText
+                    <InputTextarea
                         id='description'
                         name='description'
                         value={taskData.description}
