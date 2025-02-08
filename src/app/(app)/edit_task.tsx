@@ -150,11 +150,12 @@ export default function EditTask() {
                     />
                     <Button
                         disabled={
-                            !taskData.name ||
-                            !taskData.description ||
-                            !taskData.dueDate ||
-                            !taskData.categoryId ||
-                            !taskData.status
+                            taskData.name === task?.name &&
+                            taskData.description === task?.description &&
+                            taskData.dueDate === task?.dueDate &&
+                            taskData.categoryId === task?.categoryId &&
+                            taskData.status === task?.status &&
+                            taskData.isImportant === task?.isImportant
                         }
                         onPress={handleSubmit}
                         label='Save'
