@@ -31,7 +31,7 @@ export default function InputDate(props: DateInputProps) {
     return (
         <>
             <InputGroup fakeInput={props.fakeInput} value={props.value} icon={props.icon} label={props.label}>
-                <TouchableOpacity activeOpacity={0.5} className="p-4" onPress={() => setShow(true)}>
+                <TouchableOpacity activeOpacity={0.5} className="p-4 flex-1" onPress={() => setShow(true)}>
                     {
                         props.value ?
                             <Text className="text-zinc-950 dark:text-zinc-100">
