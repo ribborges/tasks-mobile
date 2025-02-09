@@ -17,13 +17,7 @@ export default function Calendar() {
     }
 
     return (
-        <View className="
-            flex-1 gap-2
-            p-4
-            bg-zinc-200 dark:bg-zinc-900
-            border border-solid rounded-t-3xl
-            border-zinc-300 dark:border-zinc-800
-        ">
+        <View className="flex-1 gap-2 p-4">
             <DateSelector locale='en-US' onChange={onChange} value={date} />
             <TaskList tasks={tasks.filter(task => task.status !== "completed" && task.dueDate && removeTime(task.dueDate) === removeTime(date.toISOString()))} />
             <Collapse className="gap-2" titleClassName="text-indigo-500 font-bold text-xl" title="Completed">

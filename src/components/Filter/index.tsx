@@ -28,7 +28,7 @@ export function FilterButton(props: toggleButtonProps) {
                     flex-row items-center gap-2
                     border border-solid rounded-full
                 `,
-                props.active ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-300 dark:border-zinc-700"
+                props.active ? "border-indigo-600 bg-indigo-600/50" : "first-line:border-zinc-200 dark:border-zinc-800"
             )}
             onPress={props.onPress}
         >

@@ -81,7 +81,7 @@ function OptionItem({ label, value, children, isSelected, onPress }: OptionItemP
                     p-6
                     border border-solid rounded-xl
                 `,
-                isSelected ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-300 dark:border-zinc-700",
+                isSelected ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-200 dark:border-zinc-800",
             )}
             onPress={() => {
                 onPress && onPress(value)

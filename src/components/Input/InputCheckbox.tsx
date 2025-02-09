@@ -32,14 +32,14 @@ export default function InputCheckbox(props: CheckboxInputProps) {
                         h-10 w-10
                         m-1 p-1
                         border-2 border-solid rounded-xl
-                    `, props.value ? "bg-indigo-500 border-indigo-800" : "border-zinc-400 dark:border-zinc-700"
+                    `, props.value ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-200 dark:border-zinc-800"
                 )}
             >
                 {
                     props.value &&
                     <View className="flex-row flex-1 items-center justify-center">
                         <Text className="text-zinc-700 dark:text-zinc-100">
-                            <FontAwesome name="check" size={16} />
+                            <FontAwesome name="check" size={12} />
                         </Text>
                     </View>
                 }

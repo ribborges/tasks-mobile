@@ -9,12 +9,10 @@ export default function Important() {
     const { tasks } = useTaskStore();
 
     return (
-        <ScrollView className="
-            flex-1
-            bg-zinc-100 dark:bg-zinc-900
-            border border-solid rounded-t-3xl
-            border-zinc-200 dark:border-zinc-800
-        " contentContainerClassName="gap-2 p-4">
+        <ScrollView
+            className="flex-1"
+            contentContainerClassName="gap-2 p-4"
+        >
             <TaskList tasks={tasks.filter(task => task.status !== "completed" && task.isImportant)} />
             <Collapse className="gap-2" titleClassName="text-indigo-500 font-bold text-xl" title="Completed">
                 {

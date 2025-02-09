@@ -32,7 +32,7 @@ export default function InputGroup(props: InputGroupProps) {
                 flex-row flex-nowrap
                 overflow-hidden
                 `,
-                props.fakeInput ? "" : "rounded-xl border-2 border-solid border-zinc-400 dark:border-zinc-700"
+                props.fakeInput ? "" : "bg-zinc-100 dark:bg-zinc-900 rounded-xl border-2 border-solid border-zinc-200 dark:border-zinc-800"
             )}>
                 {
                     (props.icon || props.label) &&

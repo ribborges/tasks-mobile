@@ -53,23 +53,35 @@ export default function TaskCard(props: TaskCardProps) {
     };
 
     return (
-        <View className="flex-row items-center gap-2 p-2 rounded-xl border border-solid border-zinc-300 dark:border-zinc-800">
+        <View className="
+            flex-row items-center gap-2 p-3
+            bg-zinc-100 dark:bg-zinc-900
+            border border-solid rounded-xl
+            border-zinc-200 dark:border-zinc-800
+        ">
             <View className={clsx(
-                "h-6 w-1 rounded-full",
+                "h-8 w-1 rounded-full",
                 task?.status === 'completed' ? "bg-green-500" :
                     task?.status === 'in-progress' ? "bg-yellow-500" :
                         task?.status === 'pending' ? "bg-red-500" : "bg-blue-500"
             )} />
             <TouchableOpacity
-                className="
-                    h-6 w-6
-                    border border-solid rounded-full
-                    bg-zinc-300 dark:bg-zinc-800
-                    hover:bg-zinc-400 dark:hover:bg-zinc-700
-                    border-zinc-400 dark:border-zinc-700
-                    transition duration-500
-                "
-            />
+                className={clsx(
+                    `
+                        h-7 w-7
+                        flex items-center justify-center
+                        border border-solid rounded-full
+                        transition duration-500
+                    `, task?.status === 'completed' ? "border-indigo-600 bg-indigo-600/50" : "bg-zinc-300 dark:bg-zinc-800 border-zinc-400 dark:border-zinc-700"
+                )}
+            >
+                {
+                    task?.status === 'completed' &&
+                    <Text className="text-black dark:text-white">
+                        <FontAwesome name={'check'} size={10} />
+                    </Text>
+                }
+            </TouchableOpacity>
             <Collapse title={task?.name ?? "Untitled Task"} showCaret={false} className="flex-1" titleClassName="font-bold text-black dark:text-white">
                 {task?.categoryId && <Text className="text-sm font-semibold" style={{ color: category?.color }}>{category?.name}</Text>}
                 {task?.description && <Text className="text-zinc-700 dark:text-zinc-300">{task?.description}</Text>}

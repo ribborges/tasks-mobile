@@ -125,12 +125,10 @@ export default function Profile() {
                 </View>
             )}
             <Spacer space={30} />
-            <ScrollView className="
-                flex-1
-                bg-zinc-100 bg-opacity-50 dark:bg-zinc-900 dark:bg-opacity-50
-                border border-solid rounded-3xl
-                border-zinc-200 border-opacity-50 dark:border-zinc-800 dark:border-opacity-50
-            " contentContainerClassName="items-stretch p-4 gap-4">
+            <ScrollView
+                className="flex-1"
+                contentContainerClassName="items-stretch p-4 gap-4"
+            >
                 <View className="gap-2">
                     <InputText
                         fakeInput={!editingUser}
