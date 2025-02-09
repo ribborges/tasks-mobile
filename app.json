@@ -2,7 +2,7 @@
   "expo": {
     "name": "Tasks",
     "slug": "tasks-mobile",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -23,10 +23,14 @@
       [
         "expo-splash-screen",
         {
+          "backgroundColor": "#6366f1",
           "image": "./assets/images/splash-icon.png",
+          "dark": {
+            "backgroundColor": "#3730a3",
+            "image": "./assets/images/splash-icon-dark.png"
+          },
           "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "resizeMode": "contain"
         }
       ],
       "expo-secure-store"
