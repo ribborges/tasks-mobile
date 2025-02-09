@@ -1,15 +1,20 @@
+import React from "react";
 import { View } from "react-native";
 
 import TaskCard from "./TaskCard";
 import { Indicator } from "@/components/Loading";
 import { TaskSchema } from "@/types/task";
 
-export default function TaskList({ tasks }: { tasks: TaskSchema[] }) {
+interface TaskListProps {
+    tasks: TaskSchema[];
+}
+
+export default function TaskList(props: TaskListProps) {
     return (
-        !tasks ? <Indicator /> :
+        !props.tasks ? <Indicator /> :
             <View className="gap-2">
                 {
-                    tasks.map((task, index) => (
+                    props.tasks.map((task, index) => (
                         <TaskCard key={index} taskID={task.id} />
                     ))
                 }

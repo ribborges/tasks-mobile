@@ -71,7 +71,7 @@ export default function TaskCard(props: TaskCardProps) {
                 "
             />
             <Collapse title={task?.name ?? "Untitled Task"} showCaret={false} className="flex-1" titleClassName="font-bold text-black dark:text-white">
-                <Text className="text-sm font-semibold" style={{ color: category?.color }}>{category?.name}</Text>
+                {task?.categoryId && <Text className="text-sm font-semibold" style={{ color: category?.color }}>{category?.name}</Text>}
                 {task?.description && <Text className="text-zinc-700 dark:text-zinc-300">{task?.description}</Text>}
                 {task?.dueDate && <Text className="text-gray-500">{`Due: ${formatDate('en-US', task?.dueDate)}`}</Text>}
                 <Text className="text-gray-500">{`Created: ${formatDate('en-US', task?.createdAt)}`}</Text>

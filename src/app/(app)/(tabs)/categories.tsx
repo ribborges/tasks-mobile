@@ -20,8 +20,22 @@ export default function Categories() {
             border border-solid rounded-t-3xl
             border-zinc-300 dark:border-zinc-800
         ">
-            <Filter id="add" items={
-                categories.map((category) => ({
+            <Filter id="add" items={[
+                {
+                    label: 'Uncategorized',
+                    content: <>
+                        <TaskList tasks={tasks.filter(task => task.status !== "completed" && !task.categoryId)} />
+                        <Collapse className="gap-2" titleClassName="text-indigo-500 font-bold text-xl" title="Completed">
+                            {
+                                tasks.filter(task => task.status === "completed" && !task.categoryId).length > 0 ?
+                                    <TaskList tasks={tasks.filter(task => task.status === "completed" && !task.categoryId)} /> :
+                                    <Text className="text-lg text-gray-500">No completed tasks</Text>
+                            }
+                        </Collapse>
+                        <Blanckspace space={80} />
+                    </>
+                },
+                ...categories.map((category) => ({
                     label: category.name,
                     icon: <FontAwesome6 name={'layer-group'} size={14} color={category.color} />,
                     content: <>
@@ -29,14 +43,14 @@ export default function Categories() {
                         <Collapse className="gap-2" titleClassName="text-indigo-500 font-bold text-xl" title="Completed">
                             {
                                 tasks.filter(task => task.status === "completed" && task.categoryId === category.id).length > 0 ?
-                                    <TaskList tasks={tasks.filter(task => task.status === "completed")} /> :
+                                    <TaskList tasks={tasks.filter(task => task.status === "completed" && task.categoryId === category.id)} /> :
                                     <Text className="text-lg text-gray-500">No completed tasks</Text>
                             }
                         </Collapse>
                         <Blanckspace space={80} />
                     </>
                 }))
-            } />
+            ]} />
         </View>
     );
 }

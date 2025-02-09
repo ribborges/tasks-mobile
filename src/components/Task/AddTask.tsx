@@ -127,7 +127,6 @@ export default function AddTask() {
                 <Button
                     disabled={
                         !taskData.name ||
-                        !taskData.categoryId ||
                         !taskData.status
                     }
                     onPress={handleSubmit}
