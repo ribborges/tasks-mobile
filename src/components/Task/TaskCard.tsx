@@ -21,6 +21,24 @@ export default function TaskCard(props: TaskCardProps) {
     const task = getTask(props?.taskID);
     const category = getCategory(task ? task.categoryId : '');
 
+    const completeTask = () => {
+        if (task) UpdateTask(task?.id, {
+            status: 'completed'
+        })
+            .then(response => {
+                if (response?.status !== 200) {
+                    console.error('Error updating task:', response);
+                    return;
+                }
+
+                updateTask(task.id, {
+                    ...task,
+                    status: 'completed'
+                });
+            })
+            .catch(error => console.error('There has been a problem with your fetch operation: ', error));
+    }
+
     const setIsImportant = () => {
         if (task) UpdateTask(task?.id, {
             isImportant: !task.isImportant
@@ -74,6 +92,7 @@ export default function TaskCard(props: TaskCardProps) {
                         transition duration-500
                     `, task?.status === 'completed' ? "border-indigo-600 bg-indigo-600/50" : "bg-zinc-300 dark:bg-zinc-800 border-zinc-400 dark:border-zinc-700"
                 )}
+                onPress={completeTask}
             >
                 {
                     task?.status === 'completed' &&
