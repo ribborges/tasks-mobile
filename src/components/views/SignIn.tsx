@@ -27,7 +27,6 @@ export default function SignIn() {
     }
 
     const handleSubmit = async () => {
-        console.log('credentials', credentials);
         setIsLoading(true);
 
         if (!credentials.username || !credentials.password) {
@@ -53,35 +52,32 @@ export default function SignIn() {
     }
 
     return (
-        <>
-            {isLoading ? (
-                <View className="flex-1 items-center justify-center">
-                    <ActivityIndicator size="large" color="#71717a" />
-                </View>
-            ) : (
-                <>
-                    <Title>Sign-in to your account</Title>
-                    <ScrollView contentContainerClassName="items-stretch gap-2">
-                        <InputText
-                            id='username'
-                            name='username'
-                            onChange={onChange}
-                            icon={<FontAwesome5 name="id-badge" />}
-                            label='Username'
-                            placeholder="ana.Silva"
-                            autoCapitalize="none"
-                        />
-                        <InputPassword
-                            id='password'
-                            name='password'
-                            onChange={onChange}
-                            icon={<Ionicons name="key" />}
-                            label='Password'
-                        />
-                        <Button label='Sign-in' onPress={handleSubmit} />
-                    </ScrollView>
-                </>
-            )}
-        </>
+        isLoading ?
+            <View className="flex-1 items-center justify-center">
+                <ActivityIndicator size="large" color="#71717a" />
+            </View>
+            :
+            <>
+                <Title>Sign-in to your account</Title>
+                <ScrollView contentContainerClassName="items-stretch gap-2">
+                    <InputText
+                        id='username'
+                        name='username'
+                        onChange={onChange}
+                        icon={<FontAwesome5 name="id-badge" />}
+                        label='Username'
+                        placeholder="ana.Silva"
+                        autoCapitalize="none"
+                    />
+                    <InputPassword
+                        id='password'
+                        name='password'
+                        onChange={onChange}
+                        icon={<Ionicons name="key" />}
+                        label='Password'
+                    />
+                    <Button label='Sign-in' onPress={handleSubmit} />
+                </ScrollView>
+            </>
     );
 }
