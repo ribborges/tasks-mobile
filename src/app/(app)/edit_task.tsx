@@ -10,7 +10,7 @@ import { UpdateTask } from '@/services/task.service';
 
 export default function EditTask() {
     const router = useRouter();
-    
+
     const { id } = useLocalSearchParams() as unknown as { id: string };
     const { user } = useUserStore();
     const { tasks, updateTask } = useTaskStore();
@@ -82,12 +82,10 @@ export default function EditTask() {
             flex-1
             bg-white dark:bg-black
         ">
-            <ScrollView className="
-                flex-1
-                bg-zinc-100 bg-opacity-50 dark:bg-zinc-900 dark:bg-opacity-50
-                border border-solid rounded-3xl
-                border-zinc-200 border-opacity-50 dark:border-zinc-800 dark:border-opacity-50
-            " contentContainerClassName="items-stretch p-4 gap-4">
+            <ScrollView
+                className="flex-1"
+                contentContainerClassName="items-stretch p-4 gap-4"
+            >
                 <View className="gap-2">
                     <InputText
                         id='name'
