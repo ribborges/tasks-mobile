@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import { router } from "expo-router";
+import { AxiosError } from "axios";
 import { Ionicons, FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 
 import { InputText, InputPassword, Button } from "@/components/Input";
@@ -8,6 +9,7 @@ import Title from "@/components/Title";
 import { useSession } from "@/hooks/useSession";
 import { useUserStore } from "@/lib/store";
 import { registerUser } from "@/services/auth.service";
+import useToast from "@/hooks/useToast";
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +22,8 @@ export default function SignUp() {
     const { signIn } = useSession();
     const { setUser, setToken } = useUserStore();
 
+    const { show } = useToast();
+
     const onChange = (value: string, name: string) => {
         setUserData((prevState: any) => ({
             ...prevState,
@@ -31,17 +35,20 @@ export default function SignUp() {
         setIsLoading(true);
 
         if (!userData.name || !userData.username || !userData.email || !userData.password) {
-            Alert.alert('Please fill all fields');
+            show({ message: 'Please fill in all fields', type: 'error' });
+            setIsLoading(false);
             return;
         }
 
         if (userData.password.length < 8) {
-            Alert.alert('Password must have at least 8 characters');
+            show({ message: 'Password must have at least 8 characters', type: 'error' });
+            setIsLoading(false);
             return;
         }
 
         if (!userData.email.includes('@')) {
-            Alert.alert('Invalid email');
+            show({ message: 'Invalid email', type: 'error' });
+            setIsLoading(false);
             return;
         }
 
@@ -56,7 +63,12 @@ export default function SignUp() {
                 router.replace('/');
             })
             .catch((error) => {
-                console.error(error);
+                if (error instanceof AxiosError && 'response' in error) {
+                    show({ message: `${error.response?.status}: ${error.response?.data}`, type: 'error' });
+                } else {
+                    show({ message: 'An error has occurred', type: 'error' });
+                }
+                setIsLoading(false);
             }).finally(() => {
                 setIsLoading(false);
             });

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 import { router } from "expo-router";
+import { AxiosError } from "axios";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 import { InputText, InputPassword, Button } from "@/components/Input";
@@ -9,6 +10,7 @@ import { useSession } from "@/hooks/useSession";
 import { LoginData } from "@/interfaces/auth";
 import { useUserStore } from "@/lib/store";
 import { loginUser } from "@/services/auth.service";
+import useToast from "@/hooks/useToast";
 
 export default function SignIn() {
     const [isLoading, setIsLoading] = useState(false);
@@ -18,6 +20,8 @@ export default function SignIn() {
     });
     const { signIn } = useSession();
     const { setUser, setToken } = useUserStore();
+
+    const { show } = useToast();
 
     const onChange = (value: string, name: string) => {
         setCredentials((prevState: any) => ({
@@ -30,7 +34,8 @@ export default function SignIn() {
         setIsLoading(true);
 
         if (!credentials.username || !credentials.password) {
-            Alert.alert('Please fill in all fields');
+            show({ message: 'Please fill in all fields', type: 'error' });
+            setIsLoading(false);
             return;
         }
 
@@ -45,7 +50,12 @@ export default function SignIn() {
                 router.replace('/');
             })
             .catch((error) => {
-                console.error(error);
+                if (error instanceof AxiosError && 'response' in error) {
+                    show({ message: `${error.response?.status}: ${error.response?.data}`, type: 'error' });
+                } else {
+                    show({ message: 'An error has occurred', type: 'error' });
+                }
+                setIsLoading(false);
             }).finally(() => {
                 setIsLoading(false);
             });

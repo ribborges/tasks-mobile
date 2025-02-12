@@ -6,6 +6,7 @@ import { SessionProvider } from "@/providers/SessionProvider";
 
 import '@/styles/global.css';
 import ModalProvider from "@/providers/ModalProvider";
+import ToastProvider from "@/providers/ToastProvider";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -13,9 +14,11 @@ export default function RootLayout() {
 
   return (
     <SessionProvider>
-      <ModalProvider>
-        <Slot />
-      </ModalProvider>
+      <ToastProvider>
+        <ModalProvider>
+          <Slot />
+        </ModalProvider>
+      </ToastProvider>
     </SessionProvider>
   );
 }
