@@ -7,6 +7,7 @@ import { useCategoryStore, useTaskStore, useUserStore } from "@/lib/store";
 import { TaskData } from "@/interfaces/task";
 import { Blanckspace } from "@/components/Separator";
 import { CreateTask } from "@/services/task.service";
+import useToast from "@/hooks/useToast";
 
 export default function AddTask() {
     const { user } = useUserStore();
@@ -22,6 +23,8 @@ export default function AddTask() {
         isImportant: false
     });
 
+    const { show } = useToast();
+
     const onChange = (value: string | boolean, name: string) => {
         setTaskData((prevState: any) => ({
             ...prevState,
@@ -34,12 +37,12 @@ export default function AddTask() {
             await CreateTask(taskData)
                 .then((res) => {
                     if (!res) {
-                        console.error('Error creating task: no response');
+                        show({ message: 'Error creating task: no response', type: 'error' });
                         return;
                     }
 
                     if (res?.status !== 201) {
-                        console.error(`${res.status}: ${res.data}`);
+                        show({ message: `${res?.status}: ${res?.data}`, type: 'error' });
                         return;
                     }
 
@@ -53,9 +56,7 @@ export default function AddTask() {
                         isImportant: false
                     });
                 })
-                .catch((error) => {
-                    console.error('There has been a problem with your fetch operation: ', error);
-                });
+                .catch(error => show({ message: `An error has occurred: ${error}`, type: 'error' }));
         }
     }
 

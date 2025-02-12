@@ -7,6 +7,7 @@ import { useCategoryStore, useTaskStore, useUserStore } from '@/lib/store';
 import { Button, InputCheckbox, InputDate, InputSelector, InputText, InputTextarea, OptionSelector } from '@/components/Input';
 import { TaskData } from '@/interfaces/task';
 import { UpdateTask } from '@/services/task.service';
+import useToast from '@/hooks/useToast';
 
 export default function EditTask() {
     const router = useRouter();
@@ -25,6 +26,8 @@ export default function EditTask() {
         status: task?.status,
         isImportant: task?.isImportant
     });
+
+    const { show } = useToast();
 
     const onChange = (value: string | boolean, name: string) => {
         setTaskData((prevState: any) => ({
@@ -45,12 +48,12 @@ export default function EditTask() {
             })
                 .then((res) => {
                     if (!res) {
-                        console.error('Error updating task: no response');
+                        show({ message: 'Error updating task: no response', type: 'error' });
                         return;
                     }
 
                     if (res?.status !== 200) {
-                        console.error(`${res.status}: ${res.data}`);
+                        show({ message: `${res?.status}: ${res?.data}`, type: 'error' });
                         return;
                     }
 
@@ -65,14 +68,12 @@ export default function EditTask() {
                             isImportant: taskData.isImportant ? taskData.isImportant : task.isImportant
                         });
                     } else {
-                        console.error('Task not found');
+                        show({ message: 'Task not found', type: 'error' });
                     }
 
                     router.dismiss();
                 })
-                .catch((error) => {
-                    console.error('There has been a problem with your fetch operation: ', error);
-                });
+                .catch(error => show({ message: `An error has occurred: ${error}`, type: 'error' }));
         }
     }
 

@@ -7,6 +7,7 @@ import Collapse from "@/components/Collapse";
 import { formatDate } from "@/utils/formatDate";
 import { FontAwesome } from "@expo/vector-icons";
 import { RemoveTask, UpdateTask } from "@/services/task.service";
+import useToast from "@/hooks/useToast";
 
 interface TaskCardProps {
     taskID: string;
@@ -21,13 +22,15 @@ export default function TaskCard(props: TaskCardProps) {
     const task = getTask(props?.taskID);
     const category = getCategory(task ? task.categoryId : '');
 
+    const { show } = useToast();
+
     const completeTask = () => {
         if (task) UpdateTask(task?.id, {
             status: 'completed'
         })
-            .then(response => {
-                if (response?.status !== 200) {
-                    console.error('Error updating task:', response);
+            .then(res => {
+                if (res?.status !== 200) {
+                    show({ message: `${res?.status}: ${res?.data}`, type: 'error' });
                     return;
                 }
 
@@ -36,7 +39,7 @@ export default function TaskCard(props: TaskCardProps) {
                     status: 'completed'
                 });
             })
-            .catch(error => console.error('There has been a problem with your fetch operation: ', error));
+            .catch(error => show({ message: `An error has occurred: ${error}`, type: 'error' }));
     }
 
     const setIsImportant = () => {
@@ -45,7 +48,7 @@ export default function TaskCard(props: TaskCardProps) {
         })
             .then(res => {
                 if (res?.status !== 200) {
-                    console.error('Error updating task:', res);
+                    show({ message: `${res?.status}: ${res?.data}`, type: 'error' });
                     return;
                 }
 
@@ -54,20 +57,20 @@ export default function TaskCard(props: TaskCardProps) {
                     isImportant: !task.isImportant
                 });
             })
-            .catch(error => console.error('There has been a problem with your fetch operation: ', error));
+            .catch(error => show({ message: `An error has occurred: ${error}`, type: 'error' }));
     }
 
     const deleteTask = () => {
         if (task) RemoveTask(task.id)
             .then(res => {
                 if (res?.status !== 200) {
-                    console.error('Error removing task:', res);
+                    show({ message: `${res?.status}: ${res?.data}`, type: 'error' });
                     return;
                 }
 
                 removeTask(task.id);
             })
-            .catch(error => console.error('There has been a problem with your fetch operation: ', error));
+            .catch(error => show({ message: `An error has occurred: ${error}`, type: 'error' }));
     };
 
     return (

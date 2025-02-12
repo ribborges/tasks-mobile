@@ -11,6 +11,7 @@ import { UpdateUser, ChangePassword, DeleteUser } from '@/services/user.service'
 import { logoutUser } from '@/services/auth.service';
 import useModal from '@/hooks/useModal';
 import TextLink from '@/components/TextLink';
+import useToast from '@/hooks/useToast';
 
 export default function Profile() {
     const [editingUser, setEditingUser] = useState(false);
@@ -32,6 +33,7 @@ export default function Profile() {
     });
 
     const { show, hide } = useModal();
+    const { show: showToast } = useToast();
 
     const deleteModal = () => {
         show({
@@ -52,25 +54,25 @@ export default function Profile() {
             title: 'About',
             content:
                 <View className="gap-2 px-6 pb-6">
-                        <Text className="text-zinc-800 dark:text-zinc-200">A simple tasks app</Text>
-                        <Text className="text-zinc-800 dark:text-zinc-200">This is a free and open source project ❤️</Text>
-                        <View className="flex-row items-center gap-1">
-                            <Text className="text-zinc-800 dark:text-zinc-200">Backend source:</Text>
-                            <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-api')}>Github</TextLink>
-                        </View>
-                        <View className="flex-row items-center gap-1">
-                            <Text className="text-zinc-800 dark:text-zinc-200">Web App source:</Text>
-                            <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-web')}>Github</TextLink>
-                        </View>
-                        <View className="flex-row items-center gap-1">
-                            <Text className="text-zinc-800 dark:text-zinc-200">Mobile App source:</Text>
-                            <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-mobile')}>Github</TextLink>
-                        </View>
-                        <View className="flex-row items-center gap-1">
-                            <Text className="text-zinc-800 dark:text-zinc-200">Licensed unde:</Text>
-                            <TextLink onPress={() => Linking.openURL('https://www.mozilla.org/en-US/MPL/2.0/')}>Mozilla Public License v2.0</TextLink>
-                        </View>
-                        <Text className="text-zinc-800 dark:text-zinc-200">v1.0.4</Text>
+                    <Text className="text-zinc-800 dark:text-zinc-200">A simple tasks app</Text>
+                    <Text className="text-zinc-800 dark:text-zinc-200">This is a free and open source project ❤️</Text>
+                    <View className="flex-row items-center gap-1">
+                        <Text className="text-zinc-800 dark:text-zinc-200">Backend source:</Text>
+                        <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-api')}>Github</TextLink>
+                    </View>
+                    <View className="flex-row items-center gap-1">
+                        <Text className="text-zinc-800 dark:text-zinc-200">Web App source:</Text>
+                        <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-web')}>Github</TextLink>
+                    </View>
+                    <View className="flex-row items-center gap-1">
+                        <Text className="text-zinc-800 dark:text-zinc-200">Mobile App source:</Text>
+                        <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-mobile')}>Github</TextLink>
+                    </View>
+                    <View className="flex-row items-center gap-1">
+                        <Text className="text-zinc-800 dark:text-zinc-200">Licensed unde:</Text>
+                        <TextLink onPress={() => Linking.openURL('https://www.mozilla.org/en-US/MPL/2.0/')}>Mozilla Public License v2.0</TextLink>
+                    </View>
+                    <Text className="text-zinc-800 dark:text-zinc-200">v1.0.4</Text>
                 </View>
         });
     }
@@ -98,12 +100,12 @@ export default function Profile() {
             })
                 .then((res) => {
                     if (!res) {
-                        console.error('Error updating user: no response');
+                        showToast({ message: 'Error updating user: no response', type: 'error' });
                         return;
                     }
 
                     if (res?.status !== 200) {
-                        console.error('Error updating user:', res.status, ":", res.data);
+                        showToast({ message: `${res?.status}: ${res?.data}`, type: 'error' });
                         return;
                     }
 
@@ -115,9 +117,7 @@ export default function Profile() {
                         email: userData?.email || user?.email
                     });
                 })
-                .catch((error) => {
-                    console.error('There has been a problem with your fetch operation: ', error);
-                });
+                .catch(error => showToast({ message: `An error has occurred: ${error}`, type: 'error' }));
         }
     }
 
@@ -126,12 +126,12 @@ export default function Profile() {
             await ChangePassword(user?.id, password)
                 .then((res) => {
                     if (!res) {
-                        console.error('Error updating password: no response');
+                        showToast({ message: 'Error updating password: no response', type: 'error' });
                         return;
                     }
 
                     if (res?.status !== 200) {
-                        console.error('Error updating password:', res.status);
+                        showToast({ message: `${res?.status}: ${res?.data}`, type: 'error' });
                         return;
                     }
 
@@ -141,17 +141,13 @@ export default function Profile() {
                     });
                     setEditingPass(false);
                 })
-                .catch((error) => {
-                    console.error('There has been a problem with your fetch operation: ', error);
-                });
+                .catch(error => showToast({ message: `An error has occurred: ${error}`, type: 'error' }));
         }
     }
 
     const handleLogout = async () => {
         logoutUser()
-            .catch((error) => {
-                console.error('There has been a problem with your fetch operation: ', error);
-            })
+            .catch(error => showToast({ message: `An error has occurred: ${error}`, type: 'error' }))
             .finally(() => {
                 signOut();
                 logout();
@@ -165,20 +161,18 @@ export default function Profile() {
             await DeleteUser(user?.id)
                 .then((res) => {
                     if (!res) {
-                        console.error('Error deleting user: no response');
+                        showToast({ message: 'Error deleting user: no response', type: 'error' });
                         return;
                     }
 
                     if (res?.status !== 200) {
-                        console.error('Error deleting user:', res.status);
+                        showToast({ message: `${res?.status}: ${res?.data}`, type: 'error' });
                         return;
                     }
 
                     logout();
                 })
-                .catch((error) => {
-                    console.error('There has been a problem with your fetch operation: ', error);
-                });
+                .catch(error => showToast({ message: `An error has occurred: ${error}`, type: 'error' }));
         }
     }
 
