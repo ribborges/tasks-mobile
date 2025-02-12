@@ -60,7 +60,7 @@ export default function AddCategory() {
                     onChange={onChange}
                     icon={<Ionicons name="person" />}
                     label='Name'
-                    placeholder="Do something"
+                    placeholder="Category"
                 />
                 <InputColor
                     id='color'
