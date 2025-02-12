@@ -40,4 +40,21 @@ async function CreateCategory({
     }
 }
 
-export { GetCategories, CreateCategory };
+async function UpdateCategory(id: string, data: {
+    name?: string,
+    color?: string
+}) {
+    try {
+        const res = await api.patch(`/category/${id}`, data, {
+            withCredentials: true
+        });
+
+        return res;
+    } catch (error) {
+        if (error instanceof AxiosError && 'response' in error) {
+            return error.response;
+        }
+    }
+}
+
+export { GetCategories, CreateCategory, UpdateCategory };
