@@ -2,24 +2,26 @@ import { useState, ReactNode } from "react";
 import { View, Text, ScrollView, TouchableOpacity, TouchableOpacityProps } from "react-native";
 import clsx from "clsx";
 
-interface toggleButtonProps {
+interface FilterButtonProps {
     id?: string,
     active?: boolean,
     icon?: ReactNode,
     label: string,
-    onPress: () => void
+    onPress: () => void,
+    onLongPress?: () => void
 }
 
-interface toggleContainerProps {
+interface FilterContainerProps {
     id: string,
     items: Array<{
         icon?: ReactNode,
         label: string,
+        onLongPress?: () => void,
         content: ReactNode
     }>
 }
 
-export function FilterButton(props: toggleButtonProps) {
+export function FilterButton(props: FilterButtonProps) {
     return (
         <TouchableOpacity
             className={clsx(
@@ -31,6 +33,7 @@ export function FilterButton(props: toggleButtonProps) {
                 props.active ? "border-indigo-600 bg-indigo-600/50" : "first-line:border-zinc-200 dark:border-zinc-800"
             )}
             onPress={props.onPress}
+            onLongPress={props.onLongPress}
         >
             {props.icon && <Text className="text-zinc-700 dark:text-zinc-300">{props.icon}</Text>}
             {props.label && <Text className="text-zinc-700 dark:text-zinc-300">{props.label}</Text>}
@@ -38,7 +41,7 @@ export function FilterButton(props: toggleButtonProps) {
     );
 }
 
-export function Filter(props: toggleContainerProps) {
+export function Filter(props: FilterContainerProps) {
     const [active, setActive] = useState(0);
 
     return (
@@ -51,6 +54,7 @@ export function Filter(props: toggleContainerProps) {
                             icon={item.icon}
                             label={item.label}
                             onPress={() => setActive(index)}
+                            onLongPress={item.onLongPress}
                             active={active === index}
                         />
                     )
