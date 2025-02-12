@@ -72,7 +72,7 @@ export default function Profile() {
                         <Text className="text-zinc-800 dark:text-zinc-200">Licensed unde:</Text>
                         <TextLink onPress={() => Linking.openURL('https://www.mozilla.org/en-US/MPL/2.0/')}>Mozilla Public License v2.0</TextLink>
                     </View>
-                    <Text className="text-zinc-800 dark:text-zinc-200">v1.0.4</Text>
+                    <Text className="text-zinc-800 dark:text-zinc-200">v1.0.2</Text>
                 </View>
         });
     }
