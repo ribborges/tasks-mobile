@@ -1,6 +1,6 @@
 import { type PropsWithChildren } from "react";
 
-import { AuthContext } from "@/context/auth";
+import { AuthContext } from "@/contexts/auth";
 import { useStorageState } from "@/hooks/useStorageState";
 
 export function SessionProvider({ children }: PropsWithChildren) {
