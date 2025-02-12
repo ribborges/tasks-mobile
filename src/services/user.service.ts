@@ -52,4 +52,18 @@ async function ChangePassword(userId: string, password: {
     }
 }
 
-export { getLoggedUser, UpdateUser, ChangePassword };
+async function DeleteUser(userId: string) {
+    try {
+        const res = await api.delete(`/user/${userId}`, {
+            withCredentials: true
+        });
+
+        return res;
+    } catch (error) {
+        if (error instanceof AxiosError && 'response' in error) {
+            return error.response;
+        }
+    }
+}
+
+export { getLoggedUser, UpdateUser, ChangePassword, DeleteUser };
