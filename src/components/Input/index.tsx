@@ -9,6 +9,7 @@ import InputCheckbox from "./InputCheckbox";
 import InputColor from "./InputColor";
 import DateSelector from "./DateSelector";
 import OptionSelector from "./OptionSelector";
+import OptionButton from "./OptionButton";
 import Button from "./Button";
 
 export {
@@ -23,5 +24,6 @@ export {
     InputColor,
     DateSelector,
     OptionSelector,
+    OptionButton,
     Button
 };

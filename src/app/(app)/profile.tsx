@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, Linking } from 'react-native';
 import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 import { Spacer } from '@/components/Separator';
 import { ProfilePic, UserInfo } from '@/components/User';
 import { useUserStore } from '@/lib/store';
-import { Button, InputPassword, InputText } from '@/components/Input';
+import { Button, InputPassword, InputText, OptionButton } from '@/components/Input';
 import { useSession } from '@/hooks/useSession';
 import { UpdateUser, ChangePassword, DeleteUser } from '@/services/user.service';
 import { logoutUser } from '@/services/auth.service';
 import useModal from '@/hooks/useModal';
+import TextLink from '@/components/TextLink';
 
 export default function Profile() {
     const [editingUser, setEditingUser] = useState(false);
@@ -42,6 +43,34 @@ export default function Profile() {
                         <Button className="bg-red-500 border-red-500" label="Yes" onPress={handleDelete} />
                         <Button label="Cancel" onPress={hide} />
                     </View>
+                </View>
+        });
+    }
+
+    const aboutModal = () => {
+        show({
+            title: 'About',
+            content:
+                <View className="gap-2 px-6 pb-6">
+                        <Text className="text-zinc-800 dark:text-zinc-200">A simple tasks app</Text>
+                        <Text className="text-zinc-800 dark:text-zinc-200">This is a free and open source project ❤️</Text>
+                        <View className="flex-row items-center gap-1">
+                            <Text className="text-zinc-800 dark:text-zinc-200">Backend source:</Text>
+                            <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-api')}>Github</TextLink>
+                        </View>
+                        <View className="flex-row items-center gap-1">
+                            <Text className="text-zinc-800 dark:text-zinc-200">Web App source:</Text>
+                            <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-web')}>Github</TextLink>
+                        </View>
+                        <View className="flex-row items-center gap-1">
+                            <Text className="text-zinc-800 dark:text-zinc-200">Mobile App source:</Text>
+                            <TextLink onPress={() => Linking.openURL('https://github.com/ribborges/tasks-mobile')}>Github</TextLink>
+                        </View>
+                        <View className="flex-row items-center gap-1">
+                            <Text className="text-zinc-800 dark:text-zinc-200">Licensed unde:</Text>
+                            <TextLink onPress={() => Linking.openURL('https://www.mozilla.org/en-US/MPL/2.0/')}>Mozilla Public License v2.0</TextLink>
+                        </View>
+                        <Text className="text-zinc-800 dark:text-zinc-200">v1.0.4</Text>
                 </View>
         });
     }
@@ -165,6 +194,12 @@ export default function Profile() {
                     <UserInfo size="xl" name={user?.name} username={user?.username} />
                 </View>
             )}
+            <Spacer space={30} />
+            <OptionButton
+                label="About"
+                icon={<FontAwesome name="info" size={22} />}
+                onPress={aboutModal}
+            />
             <Spacer space={30} />
             <ScrollView
                 className="flex-1"
