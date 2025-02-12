@@ -2,9 +2,10 @@ import { Slot } from "expo-router";
 import { useColorScheme } from "react-native";
 import * as SystemUI from 'expo-system-ui';
 
-import { SessionProvider } from "@/provider/SessionProvider";
+import { SessionProvider } from "@/providers/SessionProvider";
 
 import '@/styles/global.css';
+import ModalProvider from "@/providers/ModalProvider";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -12,7 +13,9 @@ export default function RootLayout() {
 
   return (
     <SessionProvider>
-      <Slot />
+      <ModalProvider>
+        <Slot />
+      </ModalProvider>
     </SessionProvider>
   );
 }
