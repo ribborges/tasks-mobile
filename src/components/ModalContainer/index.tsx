@@ -1,9 +1,7 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { Modal, View, TouchableOpacity, Text } from "react-native";
 import { BlurView } from "expo-blur";
 import { FontAwesome } from "@expo/vector-icons";
-
-import { Spacer } from "@/components/Separator";
 
 interface ModalProps {
     closeBtn: () => void,
