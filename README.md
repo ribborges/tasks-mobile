@@ -1,22 +1,44 @@
-# Tasks: Your to-do app 💰
+# Tasks: Your to-do app ☑️
 
-Tasks is a simple to-do app.
+A simple tasks/to-do app with categories. Develop with TypeScript, React Native, Expo, NativewindCSS, Zustand and Axios.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app). It uses zustand for state management.
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## Features
 
-1. Install dependencies
+- User authentication with context
+- State management with zustand
+- Task management with categories
+- NativewindCSS for stylization
+- Axios for API requests
 
-   ```bash
-   npm install
-   ```
+## Prerequisites
 
-2. Start the app
+- Node.js
+- npm
+- eas
+- Expo GO app
 
-   ```bash
-   npx expo start
-   ```
+## Running with npm
+
+1. Download and install [node.js](https://nodejs.org/en).
+
+2. ### Set the .env variables
+    - EXPO_PUBLIC_API_URL (API URL)
+
+3. Open your terminal/cmd on the repo directory
+
+4. Install dependencies
+
+```bash
+> npm install
+```
+
+5. Start the app
+
+```bash
+> npm start
+```
 
 ## How to build
 
@@ -37,3 +59,6 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    ```bash
    eas build --profile preview
    ```
+
+[WEB APP repo](https://github.com/ribborges/tasks-web)
+[API repo](https://github.com/ribborges/tasks-api)
