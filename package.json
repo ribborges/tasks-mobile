@@ -1,8 +1,15 @@
 {
   "name": "tasks-mobile",
+  "description": "A simple tasks/to-do app with categories",
   "main": "expo-router/entry",
   "version": "1.0.2",
   "license": "MPL-2.0",
+  "repository": "https://github.com/ribborges/tasks-mobile",
+  "author": {
+    "name": "Richard Borges",
+    "email": "contato@richardborges.dev",
+    "url": "https://richardborges.dev"
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
