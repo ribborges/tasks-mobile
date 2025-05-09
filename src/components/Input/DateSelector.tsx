@@ -73,7 +73,7 @@ function Day({ date, onPress, selected }: { date: DateProps, onPress?: () => voi
                 p-4
                 border border-solid rounded-3xl
                 transition duration-500
-            `, selected ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-200 dark:border-zinc-800"
+            `, selected ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-200 dark:border-zinc-900"
         )} onPress={onPress}>
             <Text className="text-sm first-letter:uppercase text-zinc-700 dark:text-zinc-300">{date.month}</Text>
             <Text className="font-bold text-2xl text-zinc-700 dark:text-zinc-300">{date.day}</Text>

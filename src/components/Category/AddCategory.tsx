@@ -14,7 +14,7 @@ export default function AddCategory() {
 
     const [categoryData, setCategoryData] = useState<CategoryData>({
         name: '',
-        color: '#999999',
+        color: '#ff0000',
     });
 
     const onChange = (value: string | boolean, name: string) => {

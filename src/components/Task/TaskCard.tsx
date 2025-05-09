@@ -76,9 +76,9 @@ export default function TaskCard(props: TaskCardProps) {
     return (
         <View className="
             flex-row items-center gap-2 p-3
-            bg-zinc-100 dark:bg-zinc-900
-            border border-solid rounded-xl
-            border-zinc-200 dark:border-zinc-800
+            bg-zinc-100 dark:bg-zinc-950
+            border border-solid rounded-3xl
+            border-zinc-200 dark:border-zinc-900
         ">
             <View className={clsx(
                 "h-8 w-1 rounded-full",
@@ -89,7 +89,7 @@ export default function TaskCard(props: TaskCardProps) {
             <TouchableOpacity
                 className={clsx(
                     `
-                        h-7 w-7
+                        h-6 w-6
                         flex items-center justify-center
                         border border-solid rounded-full
                         transition duration-500

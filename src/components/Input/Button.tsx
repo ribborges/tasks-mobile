@@ -24,7 +24,7 @@ export default function Button({ buttonColors = "bg-indigo-600 border-indigo-600
                     border border-solid
                     basis-[max-content] items-center justify-center content-center gap-2
                     p-4 m-1
-                    rounded-xl
+                    rounded-3xl
                 `, buttonColors, props.className
             )}
         >

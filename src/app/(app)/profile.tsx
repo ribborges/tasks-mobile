@@ -189,16 +189,16 @@ export default function Profile() {
                 </View>
             )}
             <Spacer space={30} />
-            <OptionButton
-                label="About"
-                icon={<FontAwesome name="info" size={22} />}
-                onPress={aboutModal}
-            />
-            <Spacer space={30} />
             <ScrollView
                 className="flex-1"
                 contentContainerClassName="items-stretch p-4 gap-4"
             >
+                <OptionButton
+                    label="About"
+                    icon={<FontAwesome name="info" size={22} />}
+                    onPress={aboutModal}
+                />
+                <Spacer space={30} />
                 <View className="gap-2">
                     <InputText
                         fakeInput={!editingUser}

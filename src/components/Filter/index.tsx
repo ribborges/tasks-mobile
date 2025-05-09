@@ -30,7 +30,7 @@ export function FilterButton(props: FilterButtonProps) {
                     flex-row items-center gap-2
                     border border-solid rounded-full
                 `,
-                props.active ? "border-indigo-600 bg-indigo-600/50" : "first-line:border-zinc-200 dark:border-zinc-800"
+                props.active ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-200 dark:border-zinc-900"
             )}
             onPress={props.onPress}
             onLongPress={props.onLongPress}

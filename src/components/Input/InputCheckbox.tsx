@@ -31,8 +31,8 @@ export default function InputCheckbox(props: CheckboxInputProps) {
                     `
                         h-10 w-10
                         m-1 p-1
-                        border-2 border-solid rounded-xl
-                    `, props.value ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-200 dark:border-zinc-800"
+                        border-2 border-solid rounded-2xl
+                    `, props.value ? "border-indigo-600 bg-indigo-600/50" : "border-zinc-200 dark:border-zinc-900"
                 )}
             >
                 {

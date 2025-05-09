@@ -40,7 +40,7 @@ export default function InputSelector({ items, value, onChange, style, ...props 
                     dropdownIconColor={colorScheme === 'dark' ? "white" : "black"}
                     itemStyle={{
                         color: colorScheme === 'dark' ? "white" : "black",
-                        backgroundColor: colorScheme === 'dark' ? "black" : "white"
+                        backgroundColor: colorScheme === 'dark' ? "#09090b" : "#f4f4f5"
                     }}
                     {...props}
                 >
@@ -51,7 +51,7 @@ export default function InputSelector({ items, value, onChange, style, ...props 
                             value={item.value}
                             style={{
                                 color: colorScheme === 'dark' ? "white" : "black",
-                                backgroundColor: colorScheme === 'dark' ? "#333333" : "#dddddd"
+                                backgroundColor: colorScheme === 'dark' ? "#09090b" : "#f4f4f5"
                             }}
                         />
                     ))}
