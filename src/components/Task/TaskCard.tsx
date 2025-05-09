@@ -5,9 +5,10 @@ import clsx from "clsx";
 import { useCategoryStore, useTaskStore } from "@/lib/store";
 import Collapse from "@/components/Collapse";
 import { formatDate } from "@/utils/formatDate";
-import { FontAwesome } from "@expo/vector-icons";
+import { Entypo, FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { RemoveTask, UpdateTask } from "@/services/task.service";
 import useToast from "@/hooks/useToast";
+import { Dropdown } from "../Dropdown";
 
 interface TaskCardProps {
     taskID: string;
@@ -111,21 +112,35 @@ export default function TaskCard(props: TaskCardProps) {
                 <Text className="text-gray-500">{`Created: ${formatDate('en-US', task?.createdAt)}`}</Text>
             </Collapse>
             <View className="flex-row items-center gap-1">
-                <TouchableOpacity onPress={setIsImportant} activeOpacity={0.5} className="p-1">
-                    <Text className={task?.isImportant ? "text-yellow-500" : "text-zinc-700 dark:text-zinc-300"}>
-                        <FontAwesome name={'star'} size={18} />
+                {
+                    task?.isImportant &&
+                    <View className="p-1">
+                        <Text className="text-yellow-500">
+                            <FontAwesome name={'star'} size={18} />
+                        </Text>
+                    </View>
+                }
+                <Dropdown align="right" items={[
+                    {
+                        label: task?.isImportant ? "Unmark as important" : "Mark as important",
+                        icon: <FontAwesome name={'star'} size={14} />,
+                        onPress: setIsImportant
+                    },
+                    {
+                        label: "Edit task",
+                        icon: <FontAwesome name="pencil-square" size={14} />,
+                        onPress: () => router.navigate({ pathname: "/edit_task", params: { id: task?.id } })
+                    },
+                    {
+                        label: "Delete task",
+                        icon: <FontAwesome name="trash" size={14} />,
+                        onPress: deleteTask
+                    }
+                ]}>
+                    <Text className="text-zinc-600 dark:text-zinc-400">
+                        <Entypo name="dots-three-vertical" size={20} />
                     </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => router.navigate({ pathname: "/edit_task", params: { id: task?.id } })} activeOpacity={0.5} className="p-1">
-                    <Text className="text-zinc-700 dark:text-zinc-300">
-                        <FontAwesome name={'pencil-square'} size={18} />
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={deleteTask} activeOpacity={0.5} className="p-1">
-                    <Text className="text-zinc-700 dark:text-zinc-300">
-                        <FontAwesome name={'trash'} size={18} />
-                    </Text>
-                </TouchableOpacity>
+                </Dropdown>
             </View>
         </View>
     );
