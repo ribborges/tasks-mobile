@@ -5,7 +5,7 @@ import { FontAwesome, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { Spacer } from '@/components/Separator';
 import { ProfilePic, UserInfo } from '@/components/User';
 import { useUserStore } from '@/lib/store';
-import { Button, InputPassword, InputText, OptionButton } from '@/components/Input';
+import { Button, InputPassword, InputText, MenuOption } from '@/components/Input';
 import { useSession } from '@/hooks/useSession';
 import { UpdateUser, ChangePassword, DeleteUser } from '@/services/user.service';
 import { logoutUser } from '@/services/auth.service';
@@ -193,7 +193,7 @@ export default function Profile() {
                 className="flex-1"
                 contentContainerClassName="items-stretch p-4 gap-4"
             >
-                <OptionButton
+                <MenuOption
                     label="About"
                     icon={<FontAwesome name="info" size={22} />}
                     onPress={aboutModal}
